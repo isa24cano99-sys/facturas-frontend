@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
+const API = 'https://facturas-ia.onrender.com'
+
 function App() {
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    fetch('https://facturas-ia.onrender.com/api/test')
-      .then(res => res.json())
+    fetch(`${API}/api/test`)
+      .then(res => {
+        if (!res.ok) {
+          throw new Error('Error en la respuesta del servidor')
+        }
+        return res.json()
+      })
       .then(res => setData(res))
       .catch(err => setError(err.message))
   }, [])
