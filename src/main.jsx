@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client'
 
 function App() {
   const [data, setData] = useState(null)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     fetch('https://facturas-ia.onrender.com/api/test')
       .then(res => res.json())
       .then(res => setData(res))
-      .catch(err => console.log(err))
+      .catch(err => setError(err.message))
   }, [])
 
   return (
@@ -16,6 +17,8 @@ function App() {
       <h1>Facturas IA 🚀</h1>
 
       <h3>Respuesta del backend:</h3>
+
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       {data ? (
         <pre>{JSON.stringify(data, null, 2)}</pre>
