@@ -1,6 +1,6 @@
-import Upload from './ui/Upload'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
+import Upload from './ui/Upload'   // 👈 IMPORTANTE
 
 const API = 'https://facturas-ia.onrender.com'
 
@@ -10,12 +10,7 @@ function App() {
 
   useEffect(() => {
     fetch(`${API}/api/test`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error('Error en la respuesta del servidor')
-        }
-        return res.json()
-      })
+      .then(res => res.json())
       .then(res => setData(res))
       .catch(err => setError(err.message))
   }, [])
@@ -26,13 +21,16 @@ function App() {
 
       <h3>Respuesta del backend:</h3>
 
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       {data ? (
         <pre>{JSON.stringify(data, null, 2)}</pre>
       ) : (
         <p>Cargando datos...</p>
       )}
+
+      {/* 👇 ESTO ES LO QUE TE FALTA */}
+      <Upload />
     </div>
   )
 }
