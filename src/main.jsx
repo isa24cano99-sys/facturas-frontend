@@ -1,4 +1,4 @@
-import Upload from './Upload'
+import Upload from './ui/Upload'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
